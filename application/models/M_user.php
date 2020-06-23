@@ -9,9 +9,10 @@ class M_user extends CI_Model {
             'username' => $this->input->post('username','true'),
             'password' => password_hash($this->input->post('password',true), PASSWORD_DEFAULT),
             'alamat' => $this->input->post('alamat',true),
-            'notelp' => $this->input->post('notelp',true),
+            'notelp' => $this->input->post('nohp',true),
             'role' => 'karyawan'
         );
+        $this->db->insert('tbl_user',$data);
     }
 }
 ?>
