@@ -32,7 +32,6 @@ class Home extends CI_Controller
     }
     public function tambah_customer()
     {
-
         $this->form_validation->set_rules('nama','Nama', 'required|trim');
         $this->form_validation->set_rules('alamat','Alamat', 'required|trim');
         $this->form_validation->set_rules('nohp','Nomor Hp', 'required|trim|numeric');
