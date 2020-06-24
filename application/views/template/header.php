@@ -20,7 +20,9 @@
 	<!-- Css -->
 	<link href="<?= base_url('assets/') ?>css/sb-admin-2.min.css" rel="stylesheet">
   <link href="<?= base_url('assets/')?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="<?= base_url('assets/css/select2.min.css') ?>">
+  <script src="<?= base_url('assets/') ?>vendor/jquery/jquery.min.js"></script>
+  <script src="<?= base_url() ?>assets/js/select2.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -62,7 +64,7 @@
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
 					aria-controls="collapsePages">
 					<i class="fas fa-fw fa-folder"></i>
-					<span>Pages</span>
+					<span>Transaksi</span>
 				</a>
 				<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">

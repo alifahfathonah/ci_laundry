@@ -6,6 +6,8 @@ class Laundry extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('m_laundry');
+        $this->load->model('m_customer');
+        $this->load->model('m_invoice');
     }
     public function jenis_laundry()
     {
@@ -28,7 +30,41 @@ class Laundry extends CI_Controller {
             $this->m_laundry->insertJenis();
             $this->session->set_flashdata('message','<div class="alert alert-success">Berhasil Menambah Data</div>');
             redirect('laundry/jenis_laundry');
-
+        }
     }
-}
+    public function tambahTransaksi()
+    {
+        $this->form_validation->set_rules('invoice', 'Invoice', 'required|trim');
+        $this->form_validation->set_rules('customer', 'Nama Customer', 'required|trim');
+        $this->form_validation->set_rules('jenis', 'Paket Laundry', 'required|trim');
+        $this->form_validation->set_rules('berat', 'Berat Cucian', 'required|trim|numeric');
+        $this->form_validation->set_rules('tanggalAmbil', 'Tanggal Ambil', 'required|trim');
+        $this->form_validation->set_rules('statusBayar', 'Status Pembayaran', 'required|trim');
+        if ($this->form_validation->run() == False) {
+            $kode = $this->m_invoice->cekInvoice();
+            $kodeSekarang = $this->m_invoice->cekKode($kode);
+            $data['title'] = 'Tambah Transaksi';
+            $data['customer'] = $this->m_customer->get_customer();
+            $data['paket'] = $this->m_laundry->lihat_jenis();
+            $data['invoice'] = $kodeSekarang;
+            $this->load->view('template/header',$data);
+            $this->load->view('laundry/tambah_transaksi',$data);
+            $this->load->view('template/footer');
+        }else{
+            $this->m_laundry->simpanTransaksi();
+            redirect('home');
+        }
+    }
+    public function lihatTransaksi()
+    {
+        $data['title'] = 'Lihat Transaksi';
+        $data['transaksi'] = $this->m_laundry->lihat_transaksi();
+        $this->load->view('template/header',$data);
+        $this->load->view('laundry/lihat_transaksi',$data);
+        $this->load->view('template/footer');
+    }
+    public function detailTransaksi(Type $var = null)
+    {
+        # code...
+    }
 }
