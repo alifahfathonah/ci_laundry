@@ -63,8 +63,12 @@ class Laundry extends CI_Controller {
         $this->load->view('laundry/lihat_transaksi',$data);
         $this->load->view('template/footer');
     }
-    public function detailTransaksi(Type $var = null)
+    public function detail($invoice)
     {
-        # code...
+        $data['title'] = 'Detail Laundry';
+        $data['transaksi'] = $this->m_laundry->detailTransaksi($invoice);
+        $this->load->view('template/header',$data);
+        $this->load->view('laundry/detailTransaksi',$data);
+        $this->load->view('template/footer');
     }
 }

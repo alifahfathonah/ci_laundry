@@ -8,6 +8,7 @@ class Home extends CI_Controller
         parent::__construct();
         $this->load->model('m_customer');
         $this->load->model('m_karyawan');
+        $this->load->model('m_laundry');
     }
     public function index()
     {
@@ -17,6 +18,7 @@ class Home extends CI_Controller
             $data['title'] = 'Dashboard';
             $data['customer'] = $this->m_customer->count_customer();
             $data['karyawan'] = $this->m_karyawan->count_karyawan();
+            $data['order'] = $this->m_laundry->hitungOrder();
             $this->load->view('template/header',$data);
             $this->load->view('home/home',$data);
             $this->load->view('template/footer');
