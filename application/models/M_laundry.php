@@ -66,7 +66,7 @@ class M_laundry extends CI_Model {
     }
     public function detailTransaksi($invoice)
     {
-        $this->db->select('tbl_customer.*, tbl_paketLaundry.id_paket, tbl_paketLaundry.jenis, tbl_transaksi.*, tbl_detailTransaksi.no_invoice, tbl_detailTransaksi.status_order, tbl_detailTransaksi.status_pembayaran, tbl_detailTransaksi.total, tbl_transaksi.tanggal_order');
+        $this->db->select('tbl_customer.*, tbl_paketLaundry.id_paket, tbl_paketLaundry.*, tbl_transaksi.*, tbl_detailTransaksi.no_invoice, tbl_detailTransaksi.status_order, tbl_detailTransaksi.status_pembayaran, tbl_detailTransaksi.total, tbl_transaksi.tanggal_order, tbl_detailTransaksi.beratCucian');
         $this->db->from('tbl_transaksi');
         $this->db->join('tbl_customer', 'tbl_transaksi.id_customer = tbl_customer.id_customer');
         $this->db->join('tbl_paketLaundry', 'tbl_transaksi.id_paket = tbl_paketLaundry.id_paket');
@@ -74,6 +74,15 @@ class M_laundry extends CI_Model {
         $this->db->where('tbl_detailTransaksi.no_invoice', $invoice);
         $data = $this->db->get();
         return $data->row_array();
+    }
+    public function updateDetail($no_invoice)
+    {
+        $data = array(
+            'status_order' => $this->input->post('statusOrder'),
+            'status_pembayaran' => $this->input->post('statusBayar'),
+        );
+        $this->db->where('no_invoice',$no_invoice);
+        $this->db->update('tbl_detailTransaksi',$data);
     }
 
 }

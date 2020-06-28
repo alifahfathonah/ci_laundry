@@ -1,3 +1,8 @@
+<?php
+	if(!$this->session->has_userdata('username')){
+		redirect('login');
+	}
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,6 +92,12 @@
 				<a class="nav-link" href="<?= base_url('home/customer') ?>">
 					<i class="fa fa-user"></i>
 					<span>Customer</span></a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url('laundry/lihatTransaksi') ?>">
+					<i class="fa fa-shopping-cart"></i>
+					<span>Transaksi</span></a>
 			</li>
 
 			<!-- Nav Item - Tables -->

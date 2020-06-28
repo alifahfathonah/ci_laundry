@@ -2,10 +2,10 @@
 	<div class="row">
 		<div class="card col-md-10 offset-md-1">
 			<div class="card-header">
-				<h2>Tambah Jenis Paket</h2>
+				<h2>Lihat Detail Transaksi</h2>
 			</div>
 			<div class="card-body">
-				<form method="POST" action="<?= base_url('laundry/tambahTransaksi'); ?>">
+				<form method="POST" action="<?= base_url('laundry/updateDetail/'. $transaksi['no_invoice']); ?>">
 					<div class="form-group row">
 						<table class="table table-striped">
 							<tr>
@@ -38,7 +38,7 @@
 							<tr>
 								<td class="label">Status Order</td>
 								<td class="data">
-                                <select name="statusBayar" class="form-control">
+                                <select name="statusOrder" class="form-control">
                                     <option value="<?= $transaksi['status_order'] ?>" selected><?= $transaksi['status_order'] ?></option>
                                     <?php if ( $transaksi['status_order'] == 'Baru') { ?>
                                     <option value="Diproses">Diproses</option>
@@ -49,11 +49,34 @@
                                 </select>
                                 </td>
 							</tr>
+							<tr>
+								<td class="label">Tanggal Ambil</td>
+								<td class="data"><?= $transaksi['tanggal_ambil'] ?></td>
+							</tr>
+						</table>
+					</div>
+					<div class="form-group row">
+						<table class="table table-bordered">
+						<tr>
+						<th>Tanggal Order</th>
+						<th>Paket Laundry</th>
+						<th>Berat Cucian</th>
+						<th>Harga</th>
+						<th>Total</th>
+						</tr>
+						<tr>
+						<td><?= $transaksi['tanggal_order'] ?></td>
+						<td><?= $transaksi['jenis'] ?></td>
+						<td><?= $transaksi['beratCucian'] . ' Kg' ?></td>
+						<td><?= "Rp. " . number_format($transaksi['harga'],0,',','.') ?></td>
+						<td> <?= "Rp. " . number_format($transaksi['total'],0,',','.') ?> </td>
+						</tr>
 						</table>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-10">
-							<button type="submit" class="btn btn-primary">Sign in</button>
+							<button type="submit" class="btn btn-primary"> Proses Order</button>
+							<a href="<?= base_url('laundry/laporanPdf/'. $transaksi['no_invoice']) ?>" target="_blank" class="btn btn-success"> Cetak Invoice</a>
 						</div>
 					</div>
 				</form>

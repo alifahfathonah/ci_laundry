@@ -71,4 +71,17 @@ class Laundry extends CI_Controller {
         $this->load->view('laundry/detailTransaksi',$data);
         $this->load->view('template/footer');
     }
+    public function updateDetail($invoice)
+    {
+        $this->m_laundry->updateDetail($invoice);
+        redirect('laundry');
+    }
+    public function laporanPdf($invoice)
+    {
+        $data['transaksi'] = $this->m_laundry->detailTransaksi($invoice);
+        $this->load->library('pdf');
+        $this->pdf->setPaper('A5', 'potrait');
+        $this->pdf->filename = "laporan-petanikode.pdf";
+        $this->pdf->load_view('laporan/laporan_pdf', $data);
+    }
 }

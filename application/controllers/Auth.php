@@ -20,7 +20,7 @@ class Auth extends CI_Controller {
       if ($this->session->has_userdata('username')) {
         redirect('home');
       }else{
-        $this->form_validation->set_rules('username','Username', 'required|trim|is_unique[tbl_user.username]');
+        $this->form_validation->set_rules('username','Username', 'required|trim]');
         $this->form_validation->set_rules('password','Password','required|trim');
         if ($this->form_validation == FALSE) {
           $this->load->view('auth/login');
@@ -43,7 +43,13 @@ class Auth extends CI_Controller {
           ];
           $this->session->set_userdata($data);
           redirect('home');
+        }else{
+          $this->session->set_flashdata('err_message','password salah');
+          $this->load->view('auth/login');
         }
+      }else{
+        $this->session->set_flashdata('err_message','username Tidak Ada');
+        $this->load->view('auth/login');
       }
     }
     public function logout()
