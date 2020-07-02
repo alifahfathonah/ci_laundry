@@ -6,6 +6,7 @@ class M_invoice extends CI_Model {
     function __construct(){
         $this->load->database();
     }
+    // fungsi untuk mengecek Invoice
     public function cekInvoice()
     {
         $this->db->select('no_invoice');
@@ -20,6 +21,7 @@ class M_invoice extends CI_Model {
         }
         return $nomor;
     }
+    // Fungsi Untuk Generate Kode Invoice
     public function cekKode($kode)
     {
         $kodeUrut =(int) substr($kode,4,4);

@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_user extends CI_Model {
+    // FUngsi Untuk Menginsert user ke database
     public function register()
     {
         $data = array(
@@ -14,6 +15,7 @@ class M_user extends CI_Model {
         );
         $this->db->insert('tbl_user',$data);
     }
+    // fungsi untuk Mengambil Data Admin
     public function get_admin()
     {
         $data = $this->db->get_where('tbl_user', ['role' => 'admin']);

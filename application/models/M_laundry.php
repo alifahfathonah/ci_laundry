@@ -5,6 +5,7 @@ class M_laundry extends CI_Model {
     function __construct(){
         $this->load->database();
     }
+    // Fungsi Untuk Menghitung Data Order Laundry
     public function hitungOrder()
     {
         $this->db->select('tbl_customer.nama, tbl_customer.id_customer, tbl_paketLaundry.id_paket, tbl_paketLaundry.jenis, tbl_transaksi.*, tbl_detailTransaksi.no_invoice, tbl_detailTransaksi.status_order, tbl_detailTransaksi.status_pembayaran, tbl_detailTransaksi.total, tbl_transaksi.tanggal_order');
@@ -15,11 +16,13 @@ class M_laundry extends CI_Model {
         $data = $this->db->get();
         return $data->num_rows();
     }
+    // Fungsi Untuk mengambil data jenis paket dari database
     public function lihat_jenis()
     {
         $data = $this->db->get('tbl_paketLaundry')->result_array();
         return $data;
     }
+    // Fungsi Untuk meng-insert data jenis paket ke database
     public function insertJenis()
     {
         $data = array(
@@ -28,12 +31,14 @@ class M_laundry extends CI_Model {
         );
         $this->db->insert('tbl_paketLaundry',$data);
     }
+    // FUngsi Untuk Menghitung Total Pembayaran Paket
     public function total($id_paket,$berat)
     {
         $harga = $this->db->get_where('tbl_paketLaundry', ['id_paket' => $id_paket])->row_array();
         $total = $harga['harga'] * $berat;
         return $total;
     }
+    // Fungsi untuk Menyimpan data transaksi Ke Database
     public function simpanTransaksi()
     {
         $transaksi = array(
@@ -54,6 +59,7 @@ class M_laundry extends CI_Model {
         $this->db->insert('tbl_transaksi',$transaksi);
         $this->db->insert('tbl_detailTransaksi',$detail);
     }
+    // Fungsi Untuk mengambil seluruh data transaksi dari database
     public function lihat_transaksi()
     {
         $this->db->select('tbl_customer.nama, tbl_customer.id_customer, tbl_paketLaundry.id_paket, tbl_paketLaundry.jenis, tbl_transaksi.*, tbl_detailTransaksi.no_invoice, tbl_detailTransaksi.status_order, tbl_detailTransaksi.status_pembayaran, tbl_detailTransaksi.total, tbl_transaksi.tanggal_order');
@@ -64,6 +70,7 @@ class M_laundry extends CI_Model {
         $data = $this->db->get();
         return $data->result_array();
     }
+    // Fungsi Untuk Mengambil Data transaksi Yang Dipilih
     public function detailTransaksi($invoice)
     {
         $this->db->select('tbl_customer.*, tbl_paketLaundry.id_paket, tbl_paketLaundry.*, tbl_transaksi.*, tbl_detailTransaksi.no_invoice, tbl_detailTransaksi.status_order, tbl_detailTransaksi.status_pembayaran, tbl_detailTransaksi.total, tbl_transaksi.tanggal_order, tbl_detailTransaksi.beratCucian');
@@ -75,6 +82,7 @@ class M_laundry extends CI_Model {
         $data = $this->db->get();
         return $data->row_array();
     }
+    // Fungsi Untuk mengubah detail data transaksi
     public function updateDetail($no_invoice)
     {
         $data = array(
