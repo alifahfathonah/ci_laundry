@@ -6,11 +6,11 @@
 			<div class="container-fluid">
 			<?= $this->session->flashdata('message'); ?>
 				<!-- Page Heading -->
-				<h1 class="h3 mb-2 text-gray-800">Lihat Transaksi</h1>
+				<h1 class="h3 mb-2 text-gray-800">Lihat Karyawan</h1>
 				<div class="card shadow mb-2">
 					<div class="card-header py-3">
 						<!-- <h6 class="m-0 font-weight-bold text-primary">Kategori</h6> -->
-						<a class="btn btn-primary float-right" href="<?= base_url('laundry/tambahTransaksi') ?>">Tambah Transaksi</a>
+						<a class="btn btn-primary float-right" href="<?= base_url('home/tambahKaryawan') ?>">Tambah </a>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive table-bordered">
@@ -18,28 +18,23 @@
 								<thead>
 									<tr>
 										<th>No</th>
-										<th>Tanggal Order</th>
-										<th>Customer</th>
-										<th>Pembayaran</th>
-										<th>Paket</th>
-										<th>Status Order</th>
-										<th>Total</th>
+										<th>Nama</th>
+										<th>Alamat</th>
+										<th>Nomor Telepon</th>
 										<th>Aksi</th>
 
 									</tr>
 								</thead>
 								<?php $no = 0; ?>
 								<tbody>
-									<?php foreach ($transaksi as $item) { ?>
+									<?php foreach ($karyawan as $item) { ?>
 									<tr>
 										<td><?= ++$no ?></td>
-										<td><?= $item['tanggal_order']; ?> </td>
 										<td><?= $item['nama']; ?> </td>
-                                        <td><button class="btn btn-success"><?= $item['status_pembayaran']; ?> </button></td>
-                                        <td><?= $item['jenis']; ?> </td>
-                                        <td><button class="btn btn-info"><?= $item['status_order']; ?> </button></td>
-                                        <td><?= "Rp. " . number_format($item['total'],0,',','.') ?> </td>
-                                        <td><a href="<?= base_url('laundry/detail/'.$item['no_invoice']) ?>" class="btn btn-primary">Detail</a></td>
+										<td><?= $item['alamat']; ?> </td>
+										<td><?= $item['notelp']; ?> </td>
+										<td><a href="<?= base_url('home/editKaryawan/'. $item['id_user']) ?>" class="btn btn-primary">Edit</a>
+										<a href="<?= base_url('home/hapusKaryawan/'. $item['id_user']) ?>" class="btn btn-danger" onclick=" return confirm('Anda Yakin?'); ">Hapus</a></td>
 									</tr>
 									<?php } ?>
 								</tbody>

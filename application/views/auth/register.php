@@ -47,7 +47,7 @@
                     <input type="text" class="form-control form-control-user" name="alamat" placeholder="Alamat">
                 </div>
                 <div class="form-group row">
-                    <input type="text" class="form-control form-control-user" name="nohp" placeholder="Nohp">
+                <input type="text" class="form-control form-control-user" name="nohp" placeholder="Nohp">
                 </div>
                 <button type="submit" class="btn btn-primary btn-user btn-block">
                   Register Account
