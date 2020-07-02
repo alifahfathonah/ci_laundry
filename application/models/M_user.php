@@ -14,5 +14,10 @@ class M_user extends CI_Model {
         );
         $this->db->insert('tbl_user',$data);
     }
+    public function get_admin()
+    {
+        $data = $this->db->get_where('tbl_user', ['role' => 'admin']);
+        return $data->result_array();
+    }
 }
 ?>
