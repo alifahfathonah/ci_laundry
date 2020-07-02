@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="card col-md-10 offset-md-1">
 			<div class="card-header">
-				<h2>Tambah Jenis Paket</h2>
+				<h2>Tambah Transaksi</h2>
 			</div>
 			<div class="card-body">
 				<form method="POST" action="<?= base_url('laundry/tambahTransaksi'); ?>">

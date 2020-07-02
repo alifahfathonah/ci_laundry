@@ -42,9 +42,9 @@
 
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<!-- <i class="fas fa-laugh-wink"></i> -->
-				</div>
+				<!-- <div class="sidebar-brand-icon rotate-n-15">
+				</div> -->
+				<!-- Nama Web nya -->
 				<div class="sidebar-brand-text mx-3">Web Laundry </div>
 			</a>
 
@@ -66,7 +66,7 @@
 				Menu
 			</div>
 
-			<!-- Nav Item - Pages Collapse Menu -->
+			<!-- Navigation User -->
 			<?php
 			if ($this->session->userdata('role') == 'admin') { ?>
 			<li class="nav-item">
@@ -84,7 +84,7 @@
 			</li>
 			<?php } ?>
 
-			<!-- Nav item Customer -->
+			<!-- Navigasi Menu Customer -->
 			<li class="nav-item">
 				<a class="nav-link" href="<?= base_url('home/customer') ?>">
 					<i class="fa fa-user"></i>
@@ -97,11 +97,20 @@
 					<span>Transaksi</span></a>
 			</li>
 
-			<!-- Nav Item - Tables -->
+			<!-- Navigasi - Paket Laundry -->
+			<?php
+			if ($this->session->userdata('role') == 'admin') { ?>
 			<li class="nav-item">
 				<a class="nav-link" href="<?= base_url('laundry/jenis_laundry') ?>">
 					<i class="fas fa-fw fa-inbox"></i>
 					<span>Paket Laundry</span></a>
+			</li>
+			<?php } ?>
+			<!-- Navigasi Ubah Password -->
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url('auth/changePassword') ?>">
+					<i class="fa fa-lock"></i>
+					<span>Change Password</span></a>
 			</li>
 
 			<!-- Divider -->
@@ -141,19 +150,9 @@
 
 						</li>
 
-						<!-- Nav Item - Alerts -->
-						<li class="nav-item dropdown no-arrow mx-1">
-							<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-bell fa-fw"></i>
-								<!-- Counter - Alerts -->
-								<span class="badge badge-danger badge-counter">3+</span>
-							</a>
-						</li>
-
 						<div class="topbar-divider d-none d-sm-block"></div>
 
-						<!-- Nav Item - User Information -->
+						<!-- Navigasi - User Information -->
 						<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -164,10 +163,6 @@
 							<!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="#">
-									<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-									Profile
-								</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

@@ -11,6 +11,7 @@ class Home extends CI_Controller
         $this->load->model('m_laundry');
         $this->load->model('m_user');
     }
+    // Fungsi Untuk Mengakses Dashboard Admin
     public function index()
     {
         if (!$this->session->has_userdata('username')) {
@@ -26,6 +27,7 @@ class Home extends CI_Controller
             $this->load->view('template/footer');
         }
     }
+    // fungsi untuk mengakses halaman Lihat Customer
     public function customer()
     {
         $data['title'] = 'Lihat Customer';
@@ -34,6 +36,7 @@ class Home extends CI_Controller
         $this->load->view('customer/lihat_customer',$data);
         $this->load->view('template/footer');
     }
+    // Fungsi Untuk Mengakses Halaman Tambah Customer
     public function tambah_customer()
     {
         $this->form_validation->set_rules('nama','Nama', 'required|trim');
@@ -50,12 +53,14 @@ class Home extends CI_Controller
             redirect('home/customer');
         }
     }
+    // Fungsi Untuk Melakukan Oper ID customer untuk dihapus
     public function hapusCustomer($id)
     {
         $this->m_customer->deleteCustomer($id);
         $this->session->set_flashdata('message','<div class="alert alert-success">Berhasil Mengahapus Data</div>');
         redirect('home/customer');
     }
+    // Fungsi Untuk Mengakses Edit Data Customer
     public function editCustomer($id)
     {
         $this->form_validation->set_rules('nama','Nama', 'required|trim');
@@ -73,6 +78,7 @@ class Home extends CI_Controller
             redirect('home/customer');
         }
     }
+    // Fungsi Untuk Mengakses Halaman Lihat Karyawan
     public function LihatKaryawan()
     {
         $data['title'] = 'Lihat Karyawan';
@@ -81,6 +87,7 @@ class Home extends CI_Controller
         $this->load->view('karyawan/lihat_karyawan',$data);
         $this->load->view('template/footer');
     }
+    // Fungsi Untuk mengakses Halaman Tambah Karyawan
     public function tambahKaryawan()
     {
         $this->form_validation->set_rules('nama','Nama', 'required|trim');
@@ -99,6 +106,7 @@ class Home extends CI_Controller
             redirect('home/lihatKaryawan');
         }
     }
+    // Fungsi Untuk Mengakses Halaman Edit Karyawan
     public function editKaryawan($id)
     {
         $this->form_validation->set_rules('nama','Nama', 'required|trim');
@@ -117,12 +125,14 @@ class Home extends CI_Controller
             redirect('home/lihatKaryawan');
         }
     }
+    // fungsi Untuk Mengahpus Data karyawan
     public function hapusKaryawan($id)
     {
         $this->m_karyawan->deleteKaryawan($id);
         $this->session->set_flashdata('message','<div class="alert alert-success">Berhasil Mengahapus Data</div>');
         redirect('home/lihatKaryawan');
     }
+    // Fungsi Untuk Melihat Data Admin
     public function LihatAdmin()
     {
         $data['title'] = 'Lihat Admin';

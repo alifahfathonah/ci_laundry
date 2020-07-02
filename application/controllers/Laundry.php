@@ -9,6 +9,7 @@ class Laundry extends CI_Controller {
         $this->load->model('m_customer');
         $this->load->model('m_invoice');
     }
+    // Fungsi Untuk Menampilkan Seluruh Data Jenis Laundry
     public function jenis_laundry()
     {
         $data['title'] = 'Lihat Jenis Laundry';
@@ -17,6 +18,7 @@ class Laundry extends CI_Controller {
         $this->load->view('laundry/lihat_jenis',$data);
         $this->load->view('template/footer');
     }
+    // Fungsi Untuk Mengakses Halaman Tambah Jenis Laundry
     public function tambahJenis()
     {
         $this->form_validation->set_rules('jenis','Jenis', 'required|trim');
@@ -32,6 +34,7 @@ class Laundry extends CI_Controller {
             redirect('laundry/jenis_laundry');
         }
     }
+    // Fungsi Untuk Mengakses Tambah Transaksi
     public function tambahTransaksi()
     {
         $this->form_validation->set_rules('invoice', 'Invoice', 'required|trim');
@@ -55,6 +58,7 @@ class Laundry extends CI_Controller {
             redirect('home');
         }
     }
+    // Fungsi Untuk menampilkan Halaman Data Transaksi
     public function lihatTransaksi()
     {
         $data['title'] = 'Lihat Transaksi';
@@ -63,6 +67,7 @@ class Laundry extends CI_Controller {
         $this->load->view('laundry/lihat_transaksi',$data);
         $this->load->view('template/footer');
     }
+    // Fungsi Untuk Menampilkan Detail Transaksi
     public function detail($invoice)
     {
         $data['title'] = 'Detail Laundry';
@@ -71,11 +76,13 @@ class Laundry extends CI_Controller {
         $this->load->view('laundry/detailTransaksi',$data);
         $this->load->view('template/footer');
     }
+    // Fungsi Untuk Melakukan Update Detail Transaksi
     public function updateDetail($invoice)
     {
         $this->m_laundry->updateDetail($invoice);
         redirect('laundry');
     }
+    // Fungsi Untuk Mencetak Invoice
     public function laporanPdf($invoice)
     {
         $data['transaksi'] = $this->m_laundry->detailTransaksi($invoice);

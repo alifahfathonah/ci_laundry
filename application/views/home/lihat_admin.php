@@ -19,6 +19,7 @@
 										<th>Nama</th>
 										<th>Alamat</th>
 										<th>Nomor Telepon</th>
+										<th>Aksi</th>
 									</tr>
 								</thead>
 								<?php $no = 0; ?>
@@ -29,6 +30,7 @@
 										<td><?= $item['nama']; ?> </td>
 										<td><?= $item['alamat']; ?> </td>
 										<td><?= $item['notelp']; ?> </td>
+										<td><a class="btn btn-primary" href="<?= base_url('home/editKaryawan/'. $item['id_user']) ?>">Edit</a></td>
 									</tr>
 									<?php } ?>
 								</tbody>

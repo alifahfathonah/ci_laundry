@@ -68,6 +68,7 @@
 						<td><?= $transaksi['tanggal_order'] ?></td>
 						<td><?= $transaksi['jenis'] ?></td>
 						<td><?= $transaksi['beratCucian'] . ' Kg' ?></td>
+						<!-- number format digunakan untuk menampilkan dalam bentuk rupiah -->
 						<td><?= "Rp. " . number_format($transaksi['harga'],0,',','.') ?></td>
 						<td> <?= "Rp. " . number_format($transaksi['total'],0,',','.') ?> </td>
 						</tr>
