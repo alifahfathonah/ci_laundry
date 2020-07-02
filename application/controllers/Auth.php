@@ -7,6 +7,7 @@ class Auth extends CI_Controller {
     parent::__construct();
     $this->load->model('m_user');
   }
+  // fungsi untuk mengakses default index Kehalaman Login
 	public function index()
 	{
     if ($this->session->has_userdata('username')) {
@@ -14,7 +15,8 @@ class Auth extends CI_Controller {
     }else{
       $this->load->view('auth/login');
     }
-    }
+  }
+  // Fungsi Untuk Mengakses Menu Login
     public function login()
     {
       if ($this->session->has_userdata('username')) {
@@ -29,6 +31,7 @@ class Auth extends CI_Controller {
         }
       }
     }
+    // Fungsi Backend Untuk Melakukan Login Dan Menambahkan Session
     private function _masuk(){
       $username = $this->input->post('username');
       $password = $this->input->post('password');
@@ -52,6 +55,7 @@ class Auth extends CI_Controller {
         $this->load->view('auth/login');
       }
     }
+    // FUngsi Untuk Melakukan Logout
     public function logout()
     {
         $this->session->unset_userdata('id_user');
@@ -60,6 +64,7 @@ class Auth extends CI_Controller {
         $this->session->unset_userdata('role');
         redirect('login');
     }
+    // Fungsi Untuk Mendaftar Jika Belum Ada Data Admin
     public function register()
     {
       $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
@@ -74,6 +79,34 @@ class Auth extends CI_Controller {
       }
 
     }
+    public function changePassword()
+    {
+      $data['title'] = 'Ubah Password';
+      $data['user'] = $this->db->get_where('tbl_user',['id_user' => $this->session->userdata['id_user']])->row_array();
+      $this->form_validation->set_rules('current_password','Current Password', 'trim|required');
+      $this->form_validation->set_rules('password1','New Password', 'trim|required|matches[password2]');
+      $this->form_validation->set_rules('password2','Confirm Password', 'trim|required|matches[password1]');
+      if ($this->form_validation->run() == FALSE) {
+        $this->load->view('template/header',$data);
+        $this->load->view('auth/change_password');
+        $this->load->view('template/footer');
+      }else{
+        $password_sekarang = $this->input->post('current_password');
+        if (password_verify($password_sekarang, $data['user']['password'])) {
+          $password_hash = password_hash($this->input->post('password1'),PASSWORD_DEFAULT);
+          $this->db->set('password',$password_hash);
+          $this->db->where('id_user', $this->session->userdata('id_user'));
+          $this->db->update('tbl_user');
+          $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Berhasil Mengubah Password</div>');
+          redirect('auth/changePassword');
+        }else{
+          $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Password Lama Salah</div>');
+          redirect('auth/changePassword');
+        }
+      }
+    }
+
+    // Fungsi Untuk Menampilkan Form Tambah Karyawan Dan Juga Menyyimpan Data Karyawan
     public function tambah_karyawan()
     {
       $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
