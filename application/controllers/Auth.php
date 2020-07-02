@@ -74,4 +74,20 @@ class Auth extends CI_Controller {
       }
 
     }
+    public function tambah_karyawan()
+    {
+      $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+      $this->form_validation->set_rules('username', 'Username', 'required|trim');
+      $this->form_validation->set_rules('password', 'Password', 'required|trim');
+      $this->form_validation->set_rules('nohp', 'Nomor HP', 'required|trim|numeric');
+      if ($this->form_validation->run() === false) {
+        $data['title'] = 'Tambah Karyawan';
+        $this->load->view('template/header',$data);
+        $this->load->view('karyawan/tambah_karyawan');
+        $this->load->view('template/footer',$data);
+      }else{
+        $this->m_user->register();
+        redirect('home');
+      }
+    }
 }

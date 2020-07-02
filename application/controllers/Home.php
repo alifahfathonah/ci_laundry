@@ -9,6 +9,7 @@ class Home extends CI_Controller
         $this->load->model('m_customer');
         $this->load->model('m_karyawan');
         $this->load->model('m_laundry');
+        $this->load->model('m_user');
     }
     public function index()
     {
@@ -19,6 +20,7 @@ class Home extends CI_Controller
             $data['customer'] = $this->m_customer->count_customer();
             $data['karyawan'] = $this->m_karyawan->count_karyawan();
             $data['order'] = $this->m_laundry->hitungOrder();
+            $data['transaksi'] = $this->m_laundry->lihat_transaksi();
             $this->load->view('template/header',$data);
             $this->load->view('home/home',$data);
             $this->load->view('template/footer');
@@ -70,5 +72,63 @@ class Home extends CI_Controller
             $this->session->set_flashdata('message','<div class="alert alert-success">Berhasil Mengubah Data</div>');
             redirect('home/customer');
         }
+    }
+    public function LihatKaryawan()
+    {
+        $data['title'] = 'Lihat Karyawan';
+        $data['karyawan'] = $this->m_karyawan->get_karyawan();
+        $this->load->view('template/header',$data);
+        $this->load->view('karyawan/lihat_karyawan',$data);
+        $this->load->view('template/footer');
+    }
+    public function tambahKaryawan()
+    {
+        $this->form_validation->set_rules('nama','Nama', 'required|trim');
+        $this->form_validation->set_rules('username','Alamat', 'required|trim');
+        $this->form_validation->set_rules('password',' Password', 'required|trim');
+        $this->form_validation->set_rules('alamat','Nomor Hp', 'required|trim');
+        $this->form_validation->set_rules('nohp','Nomor Hp', 'required|trim|numeric');
+        if ($this->form_validation->run() == False) {
+            $data['title'] = 'Tambah Karyawan';
+            $this->load->view('template/header',$data);
+            $this->load->view('karyawan/tambah_karyawan');
+            $this->load->view('template/footer');
+        }else{
+            $this->m_user->register();
+            $this->session->set_flashdata('message','<div class="alert alert-success">Berhasil Menambah Data</div>');
+            redirect('home/lihatKaryawan');
+        }
+    }
+    public function editKaryawan($id)
+    {
+        $this->form_validation->set_rules('nama','Nama', 'required|trim');
+        $this->form_validation->set_rules('username','Alamat', 'required|trim');
+        $this->form_validation->set_rules('alamat','Nomor Hp', 'required|trim');
+        $this->form_validation->set_rules('nohp','Nomor Hp', 'required|trim|numeric');
+        if ($this->form_validation->run() == False) {
+            $data['title'] = 'Tambah Karyawan';
+            $data['karyawan'] = $this->m_karyawan->get_karyawanById($id);
+            $this->load->view('template/header',$data);
+            $this->load->view('karyawan/edit_karyawan',$data);
+            $this->load->view('template/footer');
+        }else{
+            $this->m_karyawan->updateKaryawan($id);
+            $this->session->set_flashdata('message','<div class="alert alert-success">Berhasil Mengubah Data</div>');
+            redirect('home/lihatKaryawan');
+        }
+    }
+    public function hapusKaryawan($id)
+    {
+        $this->m_karyawan->deleteKaryawan($id);
+        $this->session->set_flashdata('message','<div class="alert alert-success">Berhasil Mengahapus Data</div>');
+        redirect('home/lihatKaryawan');
+    }
+    public function LihatAdmin()
+    {
+        $data['title'] = 'Lihat Admin';
+        $data['karyawan'] = $this->m_user->get_admin();
+        $this->load->view('template/header',$data);
+        $this->load->view('home/lihat_admin',$data);
+        $this->load->view('template/footer');
     }
 }
